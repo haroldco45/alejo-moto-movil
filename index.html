@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Alejo Moto-Móvil | Taller de motos a domicilio en Caucasia</title>
+<meta name="description" content="Mecánica de motos a domicilio en Caucasia. Pide tu servicio con ubicación GPS y recibe atención donde estés. Panel de control para el taller: órdenes, caja y recordatorios de mantenimiento.">
+<meta name="theme-color" content="#12100E">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alejo Moto-Móvil">
+<meta property="og:title" content="Alejo Moto-Móvil | Taller de motos a domicilio">
+<meta property="og:description" content="Tu mecánico llega donde estés. Pide el servicio con GPS desde el celular, en Caucasia y el Bajo Cauca.">
+<meta property="og:image" content="https://vibraspositivashm.com/og/alejo-moto-movil.jpg">
+<meta property="og:url" content="https://vibraspositivashm.com/apps/alejo-moto-movil/">
+<meta property="og:locale" content="es_CO">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Alejo Moto-Móvil | Taller de motos a domicilio">
+<meta name="twitter:description" content="Tu mecánico llega donde estés. Pide el servicio con GPS desde el celular.">
+<meta name="twitter:image" content="https://vibraspositivashm.com/og/alejo-moto-movil.jpg">
+
+<link rel="manifest" href='data:application/json,{"name":"Alejo Moto-Móvil","short_name":"Alejo Moto","start_url":".","display":"standalone","background_color":"%2312100E","theme_color":"%2312100E","icons":[{"src":"https://vibraspositivashm.com/og/alejo-icon-512.png","sizes":"512x512","type":"image/png"}]}'>
+<link rel="apple-touch-icon" href="https://vibraspositivashm.com/og/alejo-icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Alejo Moto">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --tinta:#12100E;        /* negro grafito, carrocería */
+  --acero:#2A2724;        /* superficie elevada */
+  --linea:#3D3833;
+  --aceite:#E8A317;       /* ámbar de aceite nuevo */
+  --alerta:#D6452F;       /* rojo de señal */
+  --verde:#1FA463;        /* pagado / whatsapp */
+  --papel:#F5F2ED;
+  --tenue:#9A928A;
+  --radio:14px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--tinta);
+  color:var(--papel);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:16px;line-height:1.5;
+  padding-bottom:96px;
+}
+h1,h2,h3,.cifra,.tab b{font-family:'Barlow Condensed','Arial Narrow',sans-serif;letter-spacing:.01em}
+h1{font-size:30px;margin:0;font-weight:700;line-height:1.05}
+h2{font-size:22px;margin:0 0 12px;font-weight:600}
+h3{font-size:18px;margin:0 0 6px;font-weight:600}
+a{color:var(--aceite)}
+button{font-family:inherit}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+.oculto{display:none !important}
+
+/* ---------- Encabezado ---------- */
+header.top{
+  background:linear-gradient(180deg,#1B1815 0%,#12100E 100%);
+  border-bottom:3px solid var(--aceite);
+  padding:18px 0 16px;position:relative;overflow:hidden;
+}
+header.top::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:3px;
+  background:repeating-linear-gradient(90deg,var(--aceite) 0 22px,transparent 22px 40px);
+  opacity:.35;
+}
+.marca{display:flex;align-items:center;gap:12px}
+.piston{
+  width:46px;height:46px;border-radius:12px;flex:0 0 46px;
+  background:var(--aceite);color:var(--tinta);
+  display:grid;place-items:center;font-size:24px;
+}
+.marca small{display:block;color:var(--tenue);font-size:12.5px;line-height:1.35;margin-top:2px}
+.reloj{font-size:12.5px;color:var(--tenue);margin-top:10px;display:flex;justify-content:space-between;gap:8px}
+
+/* ---------- Bloques ---------- */
+.bloque{background:var(--acero);border:1px solid var(--linea);border-radius:var(--radio);padding:16px;margin:14px 0}
+.rotulo{font-size:12px;color:var(--tenue);margin-bottom:5px;display:block}
+input,select,textarea{
+  width:100%;padding:13px 12px;margin:4px 0 10px;
+  background:#1B1815;color:var(--papel);
+  border:1px solid var(--linea);border-radius:11px;
+  font-size:16px;font-family:inherit;
+}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--aceite);outline-offset:1px}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--tenue) 50%),linear-gradient(135deg,var(--tenue) 50%,transparent 50%);background-position:calc(100% - 18px) 22px,calc(100% - 13px) 22px;background-size:5px 5px;background-repeat:no-repeat}
+textarea{min-height:70px;resize:vertical}
+label.check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--tenue);margin:6px 0 12px;line-height:1.45}
+label.check input{width:20px;height:20px;flex:0 0 20px;margin:1px 0 0}
+
+.btn{
+  width:100%;padding:16px;border:0;border-radius:12px;
+  font-size:16px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  transition:transform .08s ease,filter .15s ease;
+}
+.btn:active{transform:scale(.985)}
+.btn:focus-visible{outline:3px solid var(--papel);outline-offset:2px}
+.btn-oro{background:var(--aceite);color:var(--tinta)}
+.btn-verde{background:var(--verde);color:#fff}
+.btn-linea{background:transparent;color:var(--papel);border:1px solid var(--linea)}
+.btn-rojo{background:transparent;color:var(--alerta);border:1px solid var(--alerta)}
+.btn.sm{padding:10px 14px;font-size:14px;width:auto}
+.fila{display:flex;gap:8px;flex-wrap:wrap}
+.fila>*{flex:1}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+/* ---------- Tarjetas de datos ---------- */
+.tarjeta{background:#1B1815;border:1px solid var(--linea);border-left:4px solid var(--aceite);border-radius:11px;padding:13px;margin-bottom:10px}
+.tarjeta.pagado{border-left-color:var(--verde)}
+.tarjeta.vencido{border-left-color:var(--alerta)}
+.tarjeta .cab{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.tarjeta .meta{font-size:13px;color:var(--tenue);margin-top:4px}
+.cifra{font-size:26px;font-weight:700;line-height:1}
+.mini{font-size:12px;color:var(--tenue)}
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--linea);color:var(--papel)}
+.pill.ok{background:rgba(31,164,99,.18);color:#5FD79B}
+.pill.no{background:rgba(214,69,47,.18);color:#F08F7C}
+.pill.on{background:rgba(232,163,23,.18);color:var(--aceite)}
+.vacio{text-align:center;color:var(--tenue);padding:26px 10px;font-size:14.5px}
+
+/* ---------- Chips de servicio ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 12px}
+.chip{
+  border:1px solid var(--linea);background:#1B1815;color:var(--papel);
+  padding:9px 12px;border-radius:20px;font-size:13.5px;cursor:pointer;
+}
+.chip[aria-pressed="true"]{background:var(--aceite);color:var(--tinta);border-color:var(--aceite);font-weight:600}
+
+/* ---------- Navegación inferior ---------- */
+nav.barra{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  background:rgba(18,16,14,.97);backdrop-filter:blur(8px);
+  border-top:1px solid var(--linea);
+  display:grid;grid-template-columns:repeat(5,1fr);
+  padding:8px 4px calc(8px + env(safe-area-inset-bottom));
+}
+nav.barra button{
+  background:none;border:0;color:var(--tenue);
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:10.5px;padding:6px 2px;cursor:pointer;
+}
+nav.barra button span{font-size:19px;line-height:1}
+nav.barra button[aria-current="true"]{color:var(--aceite)}
+.badge{position:absolute;transform:translate(14px,-4px);background:var(--alerta);color:#fff;font-size:9.5px;font-weight:700;border-radius:10px;padding:1px 5px}
+
+/* ---------- Panel modal ---------- */
+.velo{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:60;display:grid;place-items:center;padding:18px}
+.modal{background:var(--acero);border:1px solid var(--linea);border-radius:16px;padding:20px;max-width:420px;width:100%;max-height:88vh;overflow:auto}
+
+footer{padding:26px 16px 34px;text-align:center;color:var(--tenue);font-size:12px;line-height:1.7}
+footer b{color:var(--papel)}
+hr{border:0;border-top:1px solid var(--linea);margin:16px 0}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="marca">
+      <div class="piston">🛠️</div>
+      <div>
+        <h1 id="tituloNegocio">ALEJO MOTO-MÓVIL</h1>
+        <small id="subtituloNegocio">Mecánica de motos a domicilio · Caucasia</small>
+      </div>
+    </div>
+    <div class="reloj">
+      <span id="relojCol">—</span>
+      <span id="estadoTaller">—</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ VISTA CLIENTE ============ -->
+<section id="v-cliente">
+  <div class="bloque">
+    <h2>Pide tu servicio</h2>
+    <p class="mini" style="margin:-6px 0 14px">Llenas una vez tus datos, mandas la ubicación y Alejo va donde estés.</p>
+
+    <div id="form-datos">
+      <span class="rotulo">Tu nombre</span>
+      <input type="text" id="c_nom" placeholder="Ej: Carlos Restrepo" autocomplete="name">
+      <span class="rotulo">Dirección o punto de referencia</span>
+      <input type="text" id="c_dir" placeholder="Ej: Barrio Chambacú, frente a la cancha">
+      <span class="rotulo">Tu celular</span>
+      <input type="tel" id="c_tel" placeholder="300 000 0000" autocomplete="tel">
+      <label class="check">
+        <input type="checkbox" id="c_hd">
+        <span>Autorizo el tratamiento de mis datos personales para atender esta solicitud de servicio, conforme a la Ley 1581 de 2012. Los datos quedan guardados solo en este celular y en el WhatsApp del taller.</span>
+      </label>
+      <button class="btn btn-linea" onclick="guardarCliente()">Guardar mis datos</button>
+    </div>
+
+    <div id="datos-ok" class="oculto">
+      <div class="tarjeta">
+        <div id="resumenCliente"></div>
+        <button class="btn btn-linea sm" style="margin-top:10px" onclick="editarCliente()">Cambiar mis datos</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bloque">
+    <h2>¿Qué necesitas?</h2>
+    <div class="chips" id="chipsCliente"></div>
+    <span class="rotulo">Tu moto</span>
+    <input type="text" id="c_moto" placeholder="Ej: Pulsar NS 200, modelo 2021">
+    <span class="rotulo">Cuéntale a Alejo qué pasa</span>
+    <textarea id="c_obs" placeholder="Ej: no prende, suena la cadena, necesito aceite 20W50"></textarea>
+    <button class="btn btn-verde" onclick="pedirServicio(this)">📍 Enviar solicitud con mi ubicación</button>
+    <button class="btn btn-linea" style="margin-top:8px" onclick="ir('precios')">Ver lista de precios</button>
+  </div>
+
+  <div class="bloque" id="bloqueMiMoto">
+    <h2>El historial de tu moto</h2>
+    <div id="miHistorial"></div>
+  </div>
+</section>
+
+<!-- ============ HOY ============ -->
+<section id="v-hoy" class="oculto">
+  <div class="g2">
+    <div class="bloque" style="margin:14px 0 0">
+      <span class="rotulo">Entró hoy</span>
+      <div class="cifra" id="kpiHoy">$0</div>
+      <div class="mini" id="kpiHoyDetalle">0 trabajos</div>
+    </div>
+    <div class="bloque" style="margin:14px 0 0">
+      <span class="rotulo">Ganancia de hoy</span>
+      <div class="cifra" id="kpiUtil" style="color:var(--aceite)">$0</div>
+      <div class="mini" id="kpiGasto">$0 en gastos</div>
+    </div>
+  </div>
+
+  <div class="bloque">
+    <h2>Trabajos de hoy</h2>
+    <div id="listaHoy"></div>
+    <button class="btn btn-oro" onclick="nuevaOrden()">+ Registrar un trabajo</button>
+  </div>
+
+  <div class="bloque">
+    <h2>Clientes por llamar</h2>
+    <p class="mini" style="margin:-6px 0 12px">Motos que ya cumplieron kilometraje o tiempo para su próximo mantenimiento.</p>
+    <div id="listaAvisosHoy"></div>
+  </div>
+
+  <div class="bloque">
+    <span class="rotulo">Esta semana</span>
+    <div class="fila" style="align-items:flex-end">
+      <div><div class="cifra" id="kpiSemana">$0</div><div class="mini">facturado</div></div>
+      <div><div class="cifra" id="kpiMes" style="font-size:22px">$0</div><div class="mini">en el mes</div></div>
+      <div><div class="cifra" id="kpiDeuda" style="font-size:22px;color:var(--alerta)">$0</div><div class="mini">por cobrar</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRABAJOS ============ -->
+<section id="v-trabajos" class="oculto">
+  <div class="bloque">
+    <h2>Trabajos</h2>
+    <select id="filtroEstado" onchange="pintarTrabajos()">
+      <option value="todos">Todos</option>
+      <option value="pendiente">Sin cobrar</option>
+      <option value="pagado">Pagados</option>
+    </select>
+    <input type="search" id="buscaTrabajo" placeholder="Buscar por cliente, placa o moto" oninput="pintarTrabajos()">
+    <button class="btn btn-oro" onclick="nuevaOrden()">+ Registrar un trabajo</button>
+  </div>
+  <div id="listaTrabajos"></div>
+</section>
+
+<!-- ============ MOTOS / CLIENTES ============ -->
+<section id="v-motos" class="oculto">
+  <div class="bloque">
+    <h2>Motos atendidas</h2>
+    <p class="mini" style="margin:-6px 0 10px">Cada moto queda con su historial y su próximo mantenimiento calculado.</p>
+    <input type="search" id="buscaMoto" placeholder="Buscar por placa, dueño o moto" oninput="pintarMotos()">
+    <label class="check"><input type="checkbox" id="verTelefonos" onchange="pintarMotos()"><span>Mostrar los números de celular completos (dato personal protegido)</span></label>
+  </div>
+  <div id="listaMotos"></div>
+</section>
+
+<!-- ============ CAJA ============ -->
+<section id="v-caja" class="oculto">
+  <div class="bloque">
+    <h2>Caja</h2>
+    <div class="fila">
+      <button class="btn btn-linea sm" onclick="rango='dia';pintarCaja()">Hoy</button>
+      <button class="btn btn-linea sm" onclick="rango='semana';pintarCaja()">Semana</button>
+      <button class="btn btn-linea sm" onclick="rango='mes';pintarCaja()">Mes</button>
+    </div>
+    <hr>
+    <div class="g2">
+      <div><span class="rotulo">Entradas</span><div class="cifra" style="color:var(--verde)" id="cajaIn">$0</div></div>
+      <div><span class="rotulo">Salidas</span><div class="cifra" style="color:var(--alerta)" id="cajaOut">$0</div></div>
+    </div>
+    <hr>
+    <span class="rotulo">Le queda limpio</span>
+    <div class="cifra" style="font-size:34px;color:var(--aceite)" id="cajaNeto">$0</div>
+    <div class="mini" id="cajaDetalle"></div>
+  </div>
+
+  <div class="bloque">
+    <h3>Anotar un gasto</h3>
+    <div class="g2">
+      <select id="g_tipo">
+        <option>Gasolina</option><option>Repuestos</option><option>Herramienta</option>
+        <option>Comida</option><option>Recargas / datos</option><option>Otro</option>
+      </select>
+      <input type="number" id="g_val" placeholder="Valor" inputmode="numeric">
+    </div>
+    <input type="text" id="g_nota" placeholder="Nota (opcional)">
+    <button class="btn btn-linea" onclick="guardarGasto()">Guardar gasto</button>
+  </div>
+
+  <div class="bloque">
+    <h3>Movimientos</h3>
+    <div id="listaCaja"></div>
+  </div>
+
+  <div class="bloque">
+    <h3>Cierre del día</h3>
+    <p class="mini" style="margin:-4px 0 10px">Manda el resumen a tu propio WhatsApp para tenerlo guardado.</p>
+    <button class="btn btn-verde" onclick="cierreDia()">Enviar cierre por WhatsApp</button>
+  </div>
+</section>
+
+<!-- ============ PRECIOS ============ -->
+<section id="v-precios" class="oculto">
+  <div class="bloque">
+    <h2>Lista de precios</h2>
+    <p class="mini" style="margin:-6px 0 12px">Ajusta los valores a como los cobras. Se usan para cotizar y para armar los trabajos.</p>
+    <div id="listaPrecios"></div>
+    <hr>
+    <div class="g2">
+      <input type="text" id="p_nom" placeholder="Nuevo servicio">
+      <input type="number" id="p_val" placeholder="Precio" inputmode="numeric">
+    </div>
+    <button class="btn btn-linea" onclick="agregarServicio()">Agregar servicio</button>
+  </div>
+  <div class="bloque" id="bloqueCotizar">
+    <h3>Cotizar rápido</h3>
+    <div class="chips" id="chipsCotiza"></div>
+    <div class="cifra" id="totalCotiza">$0</div>
+    <button class="btn btn-verde" style="margin-top:12px" onclick="enviarCotizacion()">Mandar cotización por WhatsApp</button>
+  </div>
+</section>
+
+<!-- ============ AJUSTES ============ -->
+<section id="v-ajustes" class="oculto">
+  <div class="bloque">
+    <h2>Ajustes del taller</h2>
+    <span class="rotulo">Nombre del taller</span>
+    <input type="text" id="a_nombre">
+    <span class="rotulo">WhatsApp del taller (con 57)</span>
+    <input type="tel" id="a_wa" placeholder="573000000000">
+    <span class="rotulo">Zona que cubre</span>
+    <input type="text" id="a_zona">
+    <div class="g2">
+      <div><span class="rotulo">Aviso cada (km)</span><input type="number" id="a_km" inputmode="numeric"></div>
+      <div><span class="rotulo">Aviso cada (días)</span><input type="number" id="a_dias" inputmode="numeric"></div>
+    </div>
+    <span class="rotulo">Clave del panel</span>
+    <input type="text" id="a_pin" inputmode="numeric">
+    <button class="btn btn-oro" onclick="guardarAjustes()">Guardar ajustes</button>
+  </div>
+  <div class="bloque">
+    <h3>Respaldo</h3>
+    <p class="mini" style="margin:-4px 0 10px">Todo vive en este celular. Descarga el respaldo cada semana para no perder nada.</p>
+    <button class="btn btn-linea" onclick="exportar()">Descargar respaldo</button>
+    <button class="btn btn-linea" style="margin-top:8px" onclick="document.getElementById('archivo').click()">Restaurar respaldo</button>
+    <input type="file" id="archivo" accept=".json" class="oculto" onchange="importar(event)">
+    <hr>
+    <button class="btn btn-rojo" onclick="salirPanel()">Bloquear panel</button>
+  </div>
+  <div class="bloque">
+    <h3>Datos personales</h3>
+    <p class="mini">Esta app guarda nombres, teléfonos y direcciones de los clientes para prestar el servicio (Ley 1581 de 2012). No los compartas ni los uses para nada distinto. Si un cliente pide que borres sus datos, elimina su moto desde la ficha y listo.</p>
+  </div>
+</section>
+
+</main>
+
+<nav class="barra oculto" id="barraNav">
+  <button onclick="ir('hoy')" data-v="hoy"><span>📋</span>Hoy</button>
+  <button onclick="ir('trabajos')" data-v="trabajos"><span>🔧</span>Trabajos</button>
+  <button onclick="ir('motos')" data-v="motos"><span>🏍️</span>Motos<i class="badge oculto" id="badgeAvisos"></i></button>
+  <button onclick="ir('caja')" data-v="caja"><span>💵</span>Caja</button>
+  <button onclick="ir('ajustes')" data-v="ajustes"><span>⚙️</span>Ajustes</button>
+</nav>
+
+<footer>
+  <button class="btn btn-linea sm" style="margin:0 auto 18px" onclick="pedirPin()" id="btnAcceso">Entrar al panel del taller</button>
+  <div>Desarrollada por <b>Vibras Positivas HM</b> — Derechos de Autor Reservados</div>
+  <div style="margin-top:4px">Caucasia, Antioquia · Colombia</div>
+</footer>
+
+<div id="capaModal"></div>
+
+<script>
+/* ============================================================
+   ALEJO MOTO-MÓVIL v2.0
+   Vibras Positivas HM — Derechos de Autor Reservados
+   ============================================================ */
+
+const LLAVE = 'vp_alejo_v2';
+const TZ = 'America/Bogota';
+
+const BASE = {
+  ajustes:{
+    nombre:'ALEJO MOTO-MÓVIL',
+    zona:'Mecánica de motos a domicilio · Caucasia',
+    wa:'573136002941',
+    pin:'2026',
+    kmAviso:2000,
+    diasAviso:75
+  },
+  servicios:[
+    {id:'s1',n:'Cambio de aceite',v:25000},
+    {id:'s2',n:'Engrasada general',v:30000},
+    {id:'s3',n:'Tensionada de cadena',v:15000},
+    {id:'s4',n:'Kit de arrastre',v:60000},
+    {id:'s5',n:'Sincronización',v:45000},
+    {id:'s6',n:'Frenos (pastillas/bandas)',v:35000},
+    {id:'s7',n:'Mantenimiento general',v:90000},
+    {id:'s8',n:'Varada o emergencia',v:40000},
+    {id:'s9',n:'Revisión eléctrica',v:35000},
+    {id:'s10',n:'Cambio de llanta',v:20000}
+  ],
+  trabajos:[],
+  motos:[],
+  caja:[]
+};
+
+let DB = cargar();
+let rango = 'dia';
+let vista = 'cliente';
+let cotiza = new Set();
+let seleccionCliente = new Set();
+
+function cargar(){
+  try{
+    const raw = localStorage.getItem(LLAVE);
+    if(!raw) return JSON.parse(JSON.stringify(BASE));
+    const d = JSON.parse(raw);
+    return Object.assign(JSON.parse(JSON.stringify(BASE)), d);
+  }catch(e){ return JSON.parse(JSON.stringify(BASE)); }
+}
+function guardar(){ localStorage.setItem(LLAVE, JSON.stringify(DB)); }
+
+/* ---------- Utilidades ---------- */
+const $ = id => document.getElementById(id);
+const pesos = n => '$' + (Number(n)||0).toLocaleString('es-CO',{maximumFractionDigits:0});
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+
+function ahoraCol(){
+  const f = new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  return f; // YYYY-MM-DD
+}
+function relojTexto(){
+  return new Intl.DateTimeFormat('es-CO',{timeZone:TZ,weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date());
+}
+function diasEntre(iso){
+  if(!iso) return 0;
+  const a = new Date(iso+'T12:00:00'), b = new Date(ahoraCol()+'T12:00:00');
+  return Math.round((b-a)/86400000);
+}
+function fechaCorta(iso){
+  if(!iso) return '—';
+  return new Intl.DateTimeFormat('es-CO',{timeZone:TZ,day:'numeric',month:'short',year:'numeric'}).format(new Date(iso+'T12:00:00'));
+}
+function tapar(tel){
+  if(!tel) return '—';
+  const t = String(tel).replace(/\D/g,'');
+  return t.length>6 ? t.slice(0,3)+'•••'+t.slice(-2) : '•••';
+}
+function limpiarTel(t){
+  let s = String(t||'').replace(/\D/g,'');
+  if(s.length===10) s = '57'+s;
+  return s;
+}
+function abrirWA(numero,texto){
+  window.open('https://wa.me/'+limpiarTel(numero)+'?text='+encodeURIComponent(texto),'_blank');
+}
+function toast(msg){
+  const d=document.createElement('div');
+  d.textContent=msg;
+  d.style.cssText='position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:var(--aceite);color:var(--tinta);padding:12px 18px;border-radius:12px;font-weight:700;z-index:99;max-width:88%;text-align:center';
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),2600);
+}
+
+/* ---------- Reloj ---------- */
+function tick(){
+  $('relojCol').textContent = relojTexto();
+  const h = Number(new Intl.DateTimeFormat('en-US',{timeZone:TZ,hour:'2-digit',hour12:false}).format(new Date()));
+  $('estadoTaller').innerHTML = (h>=6 && h<21)
+    ? '<span class="pill ok">Atendiendo</span>'
+    : '<span class="pill no">Fuera de horario</span>';
+}
+setInterval(tick,30000);
+
+/* ============================================================
+   NAVEGACIÓN
+   ============================================================ */
+function ir(v){
+  vista = v;
+  ['cliente','hoy','trabajos','motos','caja','precios','ajustes'].forEach(x=>{
+    const el = $('v-'+x); if(el) el.classList.toggle('oculto', x!==v);
+  });
+  document.querySelectorAll('nav.barra button').forEach(b=>{
+    b.setAttribute('aria-current', b.dataset.v===v ? 'true' : 'false');
+  });
+  window.scrollTo({top:0,behavior:'instant'});
+  if(v==='hoy') pintarHoy();
+  if(v==='trabajos') pintarTrabajos();
+  if(v==='motos') pintarMotos();
+  if(v==='caja') pintarCaja();
+  if(v==='precios') pintarPrecios();
+  if(v==='ajustes') cargarAjustes();
+}
+
+function pedirPin(){
+  modal(`
+    <h2>Panel del taller</h2>
+    <p class="mini">Solo para Alejo. Escribe tu clave.</p>
+    <input type="password" id="pinIn" inputmode="numeric" placeholder="Clave" autofocus>
+    <button class="btn btn-oro" onclick="validarPin()">Entrar</button>
+    <button class="btn btn-linea" style="margin-top:8px" onclick="cerrarModal()">Cancelar</button>
+  `);
+}
+function validarPin(){
+  if($('pinIn').value === DB.ajustes.pin){
+    cerrarModal();
+    $('barraNav').classList.remove('oculto');
+    $('btnAcceso').classList.add('oculto');
+    sessionStorage.setItem('vp_alejo_ses','1');
+    ir('hoy');
+  }else{
+    toast('Clave incorrecta');
+  }
+}
+function salirPanel(){
+  sessionStorage.removeItem('vp_alejo_ses');
+  $('barraNav').classList.add('oculto');
+  $('btnAcceso').classList.remove('oculto');
+  ir('cliente');
+}
+
+function modal(html){
+  $('capaModal').innerHTML = '<div class="velo" onclick="if(event.target===this)cerrarModal()"><div class="modal">'+html+'</div></div>';
+}
+function cerrarModal(){ $('capaModal').innerHTML=''; }
+
+/* ============================================================
+   VISTA CLIENTE
+   ============================================================ */
+function pintarChipsCliente(){
+  $('chipsCliente').innerHTML = DB.servicios.map(s=>
+    `<button class="chip" aria-pressed="false" onclick="toggleCliente(this,'${s.id}')">${s.n}</button>`
+  ).join('');
+}
+function toggleCliente(el,id){
+  const on = el.getAttribute('aria-pressed')==='true';
+  el.setAttribute('aria-pressed', !on);
+  on ? seleccionCliente.delete(id) : seleccionCliente.add(id);
+}
+function guardarCliente(){
+  const d = {n:$('c_nom').value.trim(), d:$('c_dir').value.trim(), t:$('c_tel').value.trim()};
+  if(!d.n || !d.d || !d.t) return toast('Faltan datos de contacto');
+  if(!$('c_hd').checked) return toast('Falta autorizar el uso de tus datos');
+  localStorage.setItem('vp_alejo_cliente', JSON.stringify(d));
+  mostrarCliente();
+  toast('Datos guardados en tu celular');
+}
+function mostrarCliente(){
+  const g = JSON.parse(localStorage.getItem('vp_alejo_cliente')||'null');
+  if(!g) return;
+  $('form-datos').classList.add('oculto');
+  $('datos-ok').classList.remove('oculto');
+  $('resumenCliente').innerHTML = `<b>${g.n}</b><div class="meta">${g.d}<br>${g.t}</div>`;
+  pintarMiHistorial(g.t);
+}
+function editarCliente(){
+  const g = JSON.parse(localStorage.getItem('vp_alejo_cliente')||'null');
+  if(g){ $('c_nom').value=g.n; $('c_dir').value=g.d; $('c_tel').value=g.t; $('c_hd').checked=true; }
+  $('form-datos').classList.remove('oculto');
+  $('datos-ok').classList.add('oculto');
+}
+function pintarMiHistorial(tel){
+  const t = limpiarTel(tel);
+  const mias = DB.motos.filter(m=>limpiarTel(m.tel)===t);
+  if(!mias.length){ $('bloqueMiMoto').classList.add('oculto'); return; }
+  $('bloqueMiMoto').classList.remove('oculto');
+  $('miHistorial').innerHTML = mias.map(m=>{
+    const est = estadoMoto(m);
+    return `<div class="tarjeta ${est.vencido?'vencido':''}">
+      <div class="cab"><b>${m.moto}</b><span class="pill ${est.vencido?'no':'ok'}">${est.texto}</span></div>
+      <div class="meta">Placa ${m.placa||'—'} · último servicio ${fechaCorta(m.ultima)}<br>${m.ultimoServicio||''}</div>
+    </div>`;
+  }).join('');
+}
+function pedirServicio(btn){
+  const g = JSON.parse(localStorage.getItem('vp_alejo_cliente')||'null');
+  if(!g) return toast('Primero guarda tus datos');
+  if(!seleccionCliente.size) return toast('Escoge al menos un servicio');
+  btn.textContent = 'Buscando tu ubicación…';
+  const seguir = gps => { btn.textContent='📍 Enviar solicitud con mi ubicación'; mandarSolicitud(g,gps); };
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(
+      p => seguir(`https://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`),
+      () => seguir('No compartió ubicación (guiarse por la dirección)'),
+      {timeout:8000, enableHighAccuracy:true}
+    );
+  } else seguir('El celular no tiene GPS disponible');
+}
+function mandarSolicitud(c,gps){
+  const servs = DB.servicios.filter(s=>seleccionCliente.has(s.id));
+  const total = servs.reduce((a,s)=>a+s.v,0);
+  let m = `*SOLICITUD DE SERVICIO*\n${DB.ajustes.nombre}\n`;
+  m += `———————————\n`;
+  m += `Cliente: ${c.n}\nDirección: ${c.d}\nCelular: ${c.t}\n`;
+  m += `———————————\n`;
+  m += `Servicios:\n${servs.map(s=>`• ${s.n} — ${pesos(s.v)}`).join('\n')}\n`;
+  m += `Estimado: ${pesos(total)} (sin repuestos)\n`;
+  const moto = $('c_moto').value.trim(), obs = $('c_obs').value.trim();
+  if(moto) m += `Moto: ${moto}\n`;
+  if(obs) m += `Detalle: ${obs}\n`;
+  m += `———————————\nUbicación:\n${gps}\n\n`;
+  m += `Enviado ${relojTexto()}`;
+  abrirWA(DB.ajustes.wa, m);
+}
+
+/* ============================================================
+   ÓRDENES DE TRABAJO
+   ============================================================ */
+function nuevaOrden(id){
+  const t = id ? DB.trabajos.find(x=>x.id===id) : null;
+  const opciones = DB.servicios.map(s=>`<option value="${s.n}|${s.v}">${s.n} — ${pesos(s.v)}</option>`).join('');
+  modal(`
+    <h2>${t?'Editar trabajo':'Nuevo trabajo'}</h2>
+    <span class="rotulo">Cliente</span>
+    <input type="text" id="t_cli" list="dlCli" value="${t?t.cliente:''}" placeholder="Nombre del dueño">
+    <datalist id="dlCli">${[...new Set(DB.motos.map(m=>m.dueno))].map(n=>`<option value="${n}">`).join('')}</datalist>
+    <div class="g2">
+      <div><span class="rotulo">Celular</span><input type="tel" id="t_tel" value="${t?t.tel:''}" placeholder="300..."></div>
+      <div><span class="rotulo">Placa</span><input type="text" id="t_placa" value="${t?t.placa:''}" placeholder="ABC12D" style="text-transform:uppercase"></div>
+    </div>
+    <div class="g2">
+      <div><span class="rotulo">Moto</span><input type="text" id="t_moto" value="${t?t.moto:''}" placeholder="Boxer CT 100"></div>
+      <div><span class="rotulo">Kilometraje</span><input type="number" id="t_km" value="${t?t.km||'':''}" inputmode="numeric"></div>
+    </div>
+    <span class="rotulo">Servicio realizado</span>
+    <select id="t_serv" onchange="ponerPrecio()"><option value="">Escoger de la lista…</option>${opciones}<option value="Otro|0">Otro (escribir)</option></select>
+    <input type="text" id="t_desc" value="${t?t.desc:''}" placeholder="Descripción del trabajo">
+    <div class="g2">
+      <div><span class="rotulo">Mano de obra</span><input type="number" id="t_obra" value="${t?t.obra:''}" inputmode="numeric"></div>
+      <div><span class="rotulo">Repuestos (cobro)</span><input type="number" id="t_rep" value="${t?t.rep:''}" inputmode="numeric"></div>
+    </div>
+    <div class="g2">
+      <div><span class="rotulo">Costo repuestos</span><input type="number" id="t_costo" value="${t?t.costo:''}" inputmode="numeric" placeholder="Lo que te costó"></div>
+      <div><span class="rotulo">Estado</span>
+        <select id="t_est"><option value="pagado">Pagado</option><option value="pendiente">Queda debiendo</option></select>
+      </div>
+    </div>
+    <button class="btn btn-oro" onclick="guardarOrden('${t?t.id:''}')">Guardar trabajo</button>
+    <button class="btn btn-linea" style="margin-top:8px" onclick="cerrarModal()">Cancelar</button>
+  `);
+  if(t) $('t_est').value = t.estado;
+}
+function ponerPrecio(){
+  const v = $('t_serv').value;
+  if(!v) return;
+  const [n,p] = v.split('|');
+  if($('t_desc')) $('t_desc').value = n;
+  if($('t_obra') && !$('t_obra').value) $('t_obra').value = p;
+}
+function guardarOrden(id){
+  const obra = Number($('t_obra').value)||0;
+  const rep  = Number($('t_rep').value)||0;
+  const costo= Number($('t_costo').value)||0;
+  const o = {
+    id: id || uid(),
+    fecha: ahoraCol(),
+    hora: new Intl.DateTimeFormat('es-CO',{timeZone:TZ,hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date()),
+    cliente: $('t_cli').value.trim() || 'Sin nombre',
+    tel: $('t_tel').value.trim(),
+    placa: $('t_placa').value.trim().toUpperCase(),
+    moto: $('t_moto').value.trim(),
+    km: Number($('t_km').value)||0,
+    desc: $('t_desc').value.trim() || 'Servicio',
+    obra, rep, costo,
+    total: obra + rep,
+    estado: $('t_est').value
+  };
+  if(!o.moto && !o.placa) return toast('Anota al menos la moto o la placa');
+  if(id){ DB.trabajos = DB.trabajos.map(x=>x.id===id?o:x); }
+  else { DB.trabajos.unshift(o); }
+  actualizarMoto(o);
+  guardar(); cerrarModal();
+  toast('Trabajo guardado');
+  if(vista==='hoy') pintarHoy(); else pintarTrabajos();
+  if(o.tel) setTimeout(()=>preguntarRecibo(o.id),350);
+}
+function preguntarRecibo(id){
+  const t = DB.trabajos.find(x=>x.id===id);
+  modal(`
+    <h2>¿Le mandas el recibo?</h2>
+    <p class="mini">Un recibo por WhatsApp deja constancia y te hace ver serio. Además le recuerda cuándo vuelve.</p>
+    <button class="btn btn-verde" onclick="cerrarModal();enviarRecibo('${id}')">Mandar recibo a ${t.cliente}</button>
+    <button class="btn btn-linea" style="margin-top:8px" onclick="cerrarModal()">Ahora no</button>
+  `);
+}
+function enviarRecibo(id){
+  const t = DB.trabajos.find(x=>x.id===id);
+  if(!t) return;
+  const m = DB.motos.find(x=>x.placa===t.placa || (x.moto===t.moto && limpiarTel(x.tel)===limpiarTel(t.tel)));
+  let msg = `*RECIBO DE SERVICIO*\n${DB.ajustes.nombre}\n`;
+  msg += `———————————\n`;
+  msg += `${fechaCorta(t.fecha)} · ${t.hora}\n`;
+  msg += `Cliente: ${t.cliente}\n`;
+  msg += `Moto: ${t.moto}${t.placa?' · '+t.placa:''}\n`;
+  if(t.km) msg += `Kilometraje: ${t.km.toLocaleString('es-CO')} km\n`;
+  msg += `———————————\n`;
+  msg += `${t.desc}\n`;
+  msg += `Mano de obra: ${pesos(t.obra)}\n`;
+  if(t.rep) msg += `Repuestos: ${pesos(t.rep)}\n`;
+  msg += `*TOTAL: ${pesos(t.total)}*\n`;
+  msg += t.estado==='pagado' ? `Pagado. Gracias\n` : `Queda pendiente de pago\n`;
+  if(m && m.proximoKm) msg += `———————————\nPróximo mantenimiento: a los ${m.proximoKm.toLocaleString('es-CO')} km o el ${fechaCorta(m.proximaFecha)}.\nYo te aviso.\n`;
+  msg += `\n${DB.ajustes.zona}\nWhatsApp ${DB.ajustes.wa}`;
+  abrirWA(t.tel, msg);
+}
+function cambiarEstado(id){
+  const t = DB.trabajos.find(x=>x.id===id);
+  t.estado = t.estado==='pagado' ? 'pendiente' : 'pagado';
+  guardar();
+  vista==='hoy' ? pintarHoy() : pintarTrabajos();
+  toast(t.estado==='pagado' ? 'Marcado como pagado' : 'Marcado como pendiente');
+}
+function borrarTrabajo(id){
+  if(!confirm('¿Borrar este trabajo? No se puede deshacer.')) return;
+  DB.trabajos = DB.trabajos.filter(x=>x.id!==id);
+  guardar(); pintarTrabajos(); toast('Trabajo borrado');
+}
+
+function tarjetaTrabajo(t){
+  return `<div class="tarjeta ${t.estado==='pagado'?'pagado':''}">
+    <div class="cab">
+      <div><b>${t.cliente}</b><div class="meta">${t.moto||''} ${t.placa?'· '+t.placa:''}</div></div>
+      <div style="text-align:right"><div class="cifra" style="font-size:20px">${pesos(t.total)}</div>
+      <span class="pill ${t.estado==='pagado'?'ok':'no'}">${t.estado==='pagado'?'Pagado':'Debe'}</span></div>
+    </div>
+    <div class="meta">${t.desc} · ${fechaCorta(t.fecha)} ${t.hora||''}</div>
+    <div class="fila" style="margin-top:10px">
+      <button class="btn btn-linea sm" onclick="enviarRecibo('${t.id}')">Recibo</button>
+      <button class="btn btn-linea sm" onclick="cambiarEstado('${t.id}')">${t.estado==='pagado'?'Marcar deuda':'Cobrar'}</button>
+      <button class="btn btn-linea sm" onclick="nuevaOrden('${t.id}')">Editar</button>
+      <button class="btn btn-rojo sm" onclick="borrarTrabajo('${t.id}')">✕</button>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   MOTOS Y RECORDATORIOS  (el corazón del negocio)
+   ============================================================ */
+function actualizarMoto(o){
+  const clave = o.placa || (o.moto+limpiarTel(o.tel));
+  let m = DB.motos.find(x=>(x.placa && x.placa===o.placa) || x.clave===clave);
+  if(!m){
+    m = {id:uid(), clave, placa:o.placa, moto:o.moto, dueno:o.cliente, tel:o.tel, visitas:0};
+    DB.motos.push(m);
+  }
+  m.dueno = o.cliente; m.tel = o.tel || m.tel; m.moto = o.moto || m.moto; m.placa = o.placa || m.placa;
+  m.ultima = o.fecha;
+  m.ultimoServicio = o.desc;
+  m.ultimoKm = o.km || m.ultimoKm || 0;
+  m.visitas = (m.visitas||0) + 1;
+  m.proximoKm = (m.ultimoKm||0) + Number(DB.ajustes.kmAviso||2000);
+  const f = new Date(o.fecha+'T12:00:00');
+  f.setDate(f.getDate() + Number(DB.ajustes.diasAviso||75));
+  m.proximaFecha = f.toISOString().slice(0,10);
+}
+function estadoMoto(m){
+  const d = diasEntre(m.ultima);
+  const limite = Number(DB.ajustes.diasAviso||75);
+  if(d >= limite) return {vencido:true, texto:`Ya toca (${d} días)`, dias:d};
+  if(d >= limite-10) return {vencido:false, cerca:true, texto:`Faltan ${limite-d} días`, dias:d};
+  return {vencido:false, texto:`Al día`, dias:d};
+}
+function motosVencidas(){
+  return DB.motos.filter(m=>estadoMoto(m).vencido)
+    .sort((a,b)=>estadoMoto(b).dias - estadoMoto(a).dias);
+}
+function pintarMotos(){
+  const q = ($('buscaMoto').value||'').toLowerCase();
+  const ver = $('verTelefonos').checked;
+  const lista = DB.motos
+    .filter(m=>!q || (m.moto+m.placa+m.dueno).toLowerCase().includes(q))
+    .sort((a,b)=>estadoMoto(b).dias - estadoMoto(a).dias);
+  if(!lista.length){
+    $('listaMotos').innerHTML = `<div class="bloque vacio">Todavía no hay motos registradas.<br>Cada trabajo que anotes crea la ficha automáticamente.</div>`;
+    return;
+  }
+  $('listaMotos').innerHTML = lista.map(m=>{
+    const e = estadoMoto(m);
+    const gastado = DB.trabajos.filter(t=>t.placa===m.placa || t.moto===m.moto).reduce((a,t)=>a+t.total,0);
+    return `<div class="tarjeta ${e.vencido?'vencido':(e.cerca?'':'pagado')}">
+      <div class="cab">
+        <div><b>${m.moto||'Moto'}</b> <span class="mini">${m.placa||''}</span>
+          <div class="meta">${m.dueno} · ${ver?(m.tel||'—'):tapar(m.tel)}</div></div>
+        <span class="pill ${e.vencido?'no':'ok'}">${e.texto}</span>
+      </div>
+      <div class="meta" style="margin-top:8px">
+        Último: ${m.ultimoServicio||'—'} el ${fechaCorta(m.ultima)}<br>
+        ${m.ultimoKm?`Iba en ${m.ultimoKm.toLocaleString('es-CO')} km · próximo a los ${m.proximoKm.toLocaleString('es-CO')} km<br>`:''}
+        ${m.visitas} visita${m.visitas!==1?'s':''} · ${pesos(gastado)} en total
+      </div>
+      <div class="fila" style="margin-top:10px">
+        <button class="btn btn-verde sm" onclick="recordar('${m.id}')">Recordarle</button>
+        <button class="btn btn-linea sm" onclick="verHistorial('${m.id}')">Historial</button>
+        <button class="btn btn-rojo sm" onclick="borrarMoto('${m.id}')">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function recordar(id){
+  const m = DB.motos.find(x=>x.id===id);
+  if(!m) return;
+  if(!m.tel) return toast('Esa moto no tiene celular guardado');
+  const d = diasEntre(m.ultima);
+  let msg = `Hola ${m.dueno.split(' ')[0]}, le habla Alejo del taller móvil.\n\n`;
+  msg += `Su ${m.moto}${m.placa?' ('+m.placa+')':''} cumplió ${d} días desde el último ${(m.ultimoServicio||'servicio').toLowerCase()}`;
+  if(m.ultimoKm) msg += ` y quedó en ${m.ultimoKm.toLocaleString('es-CO')} km`;
+  msg += `.\n\nYa le toca mantenimiento. ¿Le paso esta semana? Voy hasta donde esté, sin costo de traslado dentro de Caucasia.\n\n`;
+  msg += `${DB.ajustes.nombre}`;
+  abrirWA(m.tel, msg);
+}
+function verHistorial(id){
+  const m = DB.motos.find(x=>x.id===id);
+  const hs = DB.trabajos.filter(t=>(m.placa && t.placa===m.placa) || t.moto===m.moto);
+  modal(`
+    <h2>${m.moto} ${m.placa||''}</h2>
+    <p class="mini">${m.dueno} · ${m.tel||'sin celular'}</p>
+    <hr>
+    ${hs.length ? hs.map(t=>`<div class="tarjeta"><div class="cab"><b>${t.desc}</b><span>${pesos(t.total)}</span></div>
+      <div class="meta">${fechaCorta(t.fecha)}${t.km?' · '+t.km.toLocaleString('es-CO')+' km':''}</div></div>`).join('')
+      : '<div class="vacio">Sin servicios registrados</div>'}
+    <button class="btn btn-linea" onclick="cerrarModal()">Cerrar</button>
+  `);
+}
+function borrarMoto(id){
+  if(!confirm('¿Borrar esta moto y sus datos personales? El historial de trabajos se conserva.')) return;
+  DB.motos = DB.motos.filter(x=>x.id!==id);
+  guardar(); pintarMotos(); toast('Ficha eliminada');
+}
+
+/* ============================================================
+   HOY
+   ============================================================ */
+function pintarHoy(){
+  const hoy = ahoraCol();
+  const th = DB.trabajos.filter(t=>t.fecha===hoy);
+  const ingreso = th.filter(t=>t.estado==='pagado').reduce((a,t)=>a+t.total,0);
+  const costos = th.reduce((a,t)=>a+(t.costo||0),0);
+  const gastos = DB.caja.filter(c=>c.fecha===hoy).reduce((a,c)=>a+c.valor,0);
+  $('kpiHoy').textContent = pesos(ingreso);
+  $('kpiHoyDetalle').textContent = `${th.length} trabajo${th.length!==1?'s':''} registrado${th.length!==1?'s':''}`;
+  $('kpiUtil').textContent = pesos(ingreso - costos - gastos);
+  $('kpiGasto').textContent = pesos(costos+gastos) + ' en gastos y repuestos';
+
+  $('listaHoy').innerHTML = th.length ? th.map(tarjetaTrabajo).join('')
+    : `<div class="vacio">Todavía no has anotado trabajos hoy.<br>Anota cada uno apenas lo termines.</div>`;
+
+  const venc = motosVencidas();
+  $('listaAvisosHoy').innerHTML = venc.length ? venc.slice(0,5).map(m=>`
+    <div class="tarjeta vencido">
+      <div class="cab"><div><b>${m.dueno}</b><div class="meta">${m.moto} ${m.placa||''}</div></div>
+      <span class="pill no">${estadoMoto(m).dias} días</span></div>
+      <button class="btn btn-verde sm" style="margin-top:9px" onclick="recordar('${m.id}')">Escribirle por WhatsApp</button>
+    </div>`).join('') + (venc.length>5?`<div class="mini" style="text-align:center">y ${venc.length-5} más en la pestaña Motos</div>`:'')
+    : `<div class="vacio">Ningún cliente pendiente por ahora.</div>`;
+
+  const b = $('badgeAvisos');
+  if(venc.length){ b.textContent = venc.length; b.classList.remove('oculto'); } else b.classList.add('oculto');
+
+  // Semana, mes, deuda
+  const hace7 = DB.trabajos.filter(t=>diasEntre(t.fecha)<7);
+  const mesAct = hoy.slice(0,7);
+  $('kpiSemana').textContent = pesos(hace7.filter(t=>t.estado==='pagado').reduce((a,t)=>a+t.total,0));
+  $('kpiMes').textContent = pesos(DB.trabajos.filter(t=>t.fecha.startsWith(mesAct)&&t.estado==='pagado').reduce((a,t)=>a+t.total,0));
+  $('kpiDeuda').textContent = pesos(DB.trabajos.filter(t=>t.estado==='pendiente').reduce((a,t)=>a+t.total,0));
+}
+
+/* ============================================================
+   TRABAJOS
+   ============================================================ */
+function pintarTrabajos(){
+  const f = $('filtroEstado').value;
+  const q = ($('buscaTrabajo').value||'').toLowerCase();
+  const lista = DB.trabajos.filter(t=>{
+    if(f!=='todos' && t.estado!==f) return false;
+    if(q && !(t.cliente+t.placa+t.moto+t.desc).toLowerCase().includes(q)) return false;
+    return true;
+  });
+  $('listaTrabajos').innerHTML = lista.length ? lista.map(tarjetaTrabajo).join('')
+    : `<div class="bloque vacio">No hay trabajos con ese filtro.</div>`;
+}
+
+/* ============================================================
+   CAJA
+   ============================================================ */
+function enRango(fecha){
+  const hoy = ahoraCol();
+  if(rango==='dia') return fecha===hoy;
+  if(rango==='semana') return diasEntre(fecha)<7;
+  return fecha.slice(0,7)===hoy.slice(0,7);
+}
+function guardarGasto(){
+  const v = Number($('g_val').value)||0;
+  if(v<=0) return toast('Escribe el valor del gasto');
+  DB.caja.unshift({id:uid(), fecha:ahoraCol(), tipo:$('g_tipo').value, valor:v, nota:$('g_nota').value.trim()});
+  $('g_val').value=''; $('g_nota').value='';
+  guardar(); pintarCaja(); toast('Gasto anotado');
+}
+function borrarGasto(id){
+  DB.caja = DB.caja.filter(c=>c.id!==id); guardar(); pintarCaja();
+}
+function pintarCaja(){
+  const trab = DB.trabajos.filter(t=>enRango(t.fecha) && t.estado==='pagado');
+  const ingreso = trab.reduce((a,t)=>a+t.total,0);
+  const costos = DB.trabajos.filter(t=>enRango(t.fecha)).reduce((a,t)=>a+(t.costo||0),0);
+  const gastos = DB.caja.filter(c=>enRango(c.fecha)).reduce((a,c)=>a+c.valor,0);
+  $('cajaIn').textContent = pesos(ingreso);
+  $('cajaOut').textContent = pesos(costos+gastos);
+  $('cajaNeto').textContent = pesos(ingreso-costos-gastos);
+  const etiqueta = rango==='dia'?'hoy':(rango==='semana'?'en los últimos 7 días':'este mes');
+  $('cajaDetalle').textContent = `${trab.length} trabajos cobrados ${etiqueta} · ${pesos(costos)} en repuestos · ${pesos(gastos)} en gastos`;
+
+  const movs = [
+    ...trab.map(t=>({f:t.fecha,txt:t.desc+' — '+t.cliente,v:t.total,tipo:'in'})),
+    ...DB.caja.filter(c=>enRango(c.fecha)).map(c=>({f:c.fecha,txt:c.tipo+(c.nota?' · '+c.nota:''),v:-c.valor,tipo:'out',id:c.id}))
+  ].sort((a,b)=>b.f.localeCompare(a.f));
+  $('listaCaja').innerHTML = movs.length ? movs.map(m=>`
+    <div class="tarjeta ${m.tipo==='in'?'pagado':'vencido'}">
+      <div class="cab"><div><b style="font-weight:500;font-size:14.5px">${m.txt}</b><div class="meta">${fechaCorta(m.f)}</div></div>
+      <div style="text-align:right"><b style="color:${m.tipo==='in'?'var(--verde)':'var(--alerta)'}">${m.tipo==='in'?'+':'−'}${pesos(Math.abs(m.v))}</b>
+      ${m.id?`<div><button class="btn btn-rojo sm" style="margin-top:6px;padding:5px 10px" onclick="borrarGasto('${m.id}')">✕</button></div>`:''}</div></div>
+    </div>`).join('') : `<div class="vacio">Sin movimientos en este periodo.</div>`;
+}
+function cierreDia(){
+  const hoy = ahoraCol();
+  const th = DB.trabajos.filter(t=>t.fecha===hoy);
+  const pagados = th.filter(t=>t.estado==='pagado');
+  const ingreso = pagados.reduce((a,t)=>a+t.total,0);
+  const deuda = th.filter(t=>t.estado==='pendiente').reduce((a,t)=>a+t.total,0);
+  const costos = th.reduce((a,t)=>a+(t.costo||0),0);
+  const gastos = DB.caja.filter(c=>c.fecha===hoy).reduce((a,c)=>a+c.valor,0);
+  let m = `*CIERRE DEL DÍA*\n${DB.ajustes.nombre}\n${relojTexto()}\n`;
+  m += `———————————\n`;
+  m += `Trabajos: ${th.length}\n`;
+  m += pagados.map(t=>`• ${t.cliente} — ${t.desc} — ${pesos(t.total)}`).join('\n') || '• Sin trabajos cobrados';
+  m += `\n———————————\n`;
+  m += `Entró: ${pesos(ingreso)}\nRepuestos: ${pesos(costos)}\nGastos: ${pesos(gastos)}\n`;
+  m += `*Limpio: ${pesos(ingreso-costos-gastos)}*\n`;
+  if(deuda) m += `Por cobrar: ${pesos(deuda)}\n`;
+  const venc = motosVencidas().length;
+  if(venc) m += `\nHay ${venc} cliente(s) por llamar para mantenimiento.`;
+  abrirWA(DB.ajustes.wa, m);
+}
+
+/* ============================================================
+   PRECIOS Y COTIZACIÓN
+   ============================================================ */
+function pintarPrecios(){
+  $('listaPrecios').innerHTML = DB.servicios.map(s=>`
+    <div class="tarjeta"><div class="cab">
+      <input type="text" value="${s.n}" style="margin:0;border:0;background:transparent;padding:4px 0" onchange="editarServicio('${s.id}','n',this.value)">
+      <div style="display:flex;gap:6px;align-items:center">
+        <input type="number" value="${s.v}" style="margin:0;width:110px;text-align:right" onchange="editarServicio('${s.id}','v',this.value)">
+        <button class="btn btn-rojo sm" style="padding:8px 11px" onclick="borrarServicio('${s.id}')">✕</button>
+      </div>
+    </div></div>`).join('');
+  $('chipsCotiza').innerHTML = DB.servicios.map(s=>
+    `<button class="chip" aria-pressed="${cotiza.has(s.id)}" onclick="toggleCotiza(this,'${s.id}')">${s.n}</button>`).join('');
+  calcularCotiza();
+}
+function editarServicio(id,campo,val){
+  const s = DB.servicios.find(x=>x.id===id);
+  s[campo] = campo==='v' ? Number(val)||0 : val;
+  guardar(); pintarChipsCliente(); calcularCotiza();
+}
+function agregarServicio(){
+  const n = $('p_nom').value.trim(), v = Number($('p_val').value)||0;
+  if(!n) return toast('Escribe el nombre del servicio');
+  DB.servicios.push({id:uid(), n, v});
+  $('p_nom').value=''; $('p_val').value='';
+  guardar(); pintarPrecios(); pintarChipsCliente(); toast('Servicio agregado');
+}
+function borrarServicio(id){
+  DB.servicios = DB.servicios.filter(s=>s.id!==id);
+  cotiza.delete(id);
+  guardar(); pintarPrecios(); pintarChipsCliente();
+}
+function toggleCotiza(el,id){
+  cotiza.has(id) ? cotiza.delete(id) : cotiza.add(id);
+  el.setAttribute('aria-pressed', cotiza.has(id));
+  calcularCotiza();
+}
+function calcularCotiza(){
+  const t = DB.servicios.filter(s=>cotiza.has(s.id)).reduce((a,s)=>a+s.v,0);
+  $('totalCotiza').textContent = pesos(t);
+}
+function enviarCotizacion(){
+  const sel = DB.servicios.filter(s=>cotiza.has(s.id));
+  if(!sel.length) return toast('Escoge los servicios a cotizar');
+  const t = sel.reduce((a,s)=>a+s.v,0);
+  let m = `*COTIZACIÓN*\n${DB.ajustes.nombre}\n———————————\n`;
+  m += sel.map(s=>`• ${s.n} — ${pesos(s.v)}`).join('\n');
+  m += `\n———————————\n*TOTAL: ${pesos(t)}*\nMano de obra incluida. Los repuestos se cotizan aparte.\n\n`;
+  m += `Voy hasta donde esté la moto.\n${DB.ajustes.zona}`;
+  abrirWA('', m);
+}
+
+/* ============================================================
+   AJUSTES Y RESPALDO
+   ============================================================ */
+function cargarAjustes(){
+  const a = DB.ajustes;
+  $('a_nombre').value=a.nombre; $('a_wa').value=a.wa; $('a_zona').value=a.zona;
+  $('a_km').value=a.kmAviso; $('a_dias').value=a.diasAviso; $('a_pin').value=a.pin;
+}
+function guardarAjustes(){
+  DB.ajustes = {
+    nombre:$('a_nombre').value.trim()||'Taller',
+    wa:limpiarTel($('a_wa').value),
+    zona:$('a_zona').value.trim(),
+    kmAviso:Number($('a_km').value)||2000,
+    diasAviso:Number($('a_dias').value)||75,
+    pin:$('a_pin').value.trim()||'2026'
+  };
+  guardar(); aplicarMarca(); toast('Ajustes guardados');
+}
+function aplicarMarca(){
+  $('tituloNegocio').textContent = DB.ajustes.nombre;
+  $('subtituloNegocio').textContent = DB.ajustes.zona;
+  document.title = DB.ajustes.nombre + ' | Taller de motos a domicilio';
+}
+function exportar(){
+  const blob = new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `respaldo-alejo-${ahoraCol()}.json`;
+  a.click();
+  toast('Respaldo descargado');
+}
+function importar(ev){
+  const f = ev.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    try{
+      const d = JSON.parse(e.target.result);
+      if(!d.ajustes || !Array.isArray(d.trabajos)) throw new Error();
+      if(!confirm('Esto reemplaza los datos actuales. ¿Seguir?')) return;
+      DB = Object.assign(JSON.parse(JSON.stringify(BASE)), d);
+      guardar(); aplicarMarca(); ir('hoy'); toast('Respaldo restaurado');
+    }catch(err){ toast('Ese archivo no sirve como respaldo'); }
+  };
+  r.readAsText(f);
+}
+
+/* ============================================================
+   CONTROL DE SUSCRIPCIÓN (Vibras Positivas HM)
+   ============================================================ */
+(async function control(){
+  try{
+    const r = await fetch('https://haroldco45.github.io/vibras-positivas-apps/control-vibras.js',{cache:'no-store'});
+    const t = await r.text();
+    if(t.includes('"alejo-moto-movil": "suspendido"')){
+      document.body.innerHTML = `<div style="text-align:center;padding:60px 24px;font-family:sans-serif">
+        <div style="font-size:52px">🔒</div>
+        <h2 style="color:#E8A317;font-family:sans-serif">Servicio suspendido</h2>
+        <p style="color:#9A928A">La suscripción de esta aplicación está vencida.</p>
+        <a href="https://wa.me/573117700431" style="color:#E8A317;font-weight:700">Escribir a soporte</a>
+        <p style="color:#9A928A;font-size:12px;margin-top:40px">Vibras Positivas HM — Derechos de Autor Reservados</p>
+      </div>`;
+    }
+  }catch(e){ /* sin conexión: la app sigue funcionando */ }
+})();
+
+/* ---------- Arranque ---------- */
+aplicarMarca();
+tick();
+pintarChipsCliente();
+mostrarCliente();
+if(sessionStorage.getItem('vp_alejo_ses')==='1'){
+  $('barraNav').classList.remove('oculto');
+  $('btnAcceso').classList.add('oculto');
+  ir('hoy');
+}else{
+  ir('cliente');
+}
+</script>
+</body>
+</html>

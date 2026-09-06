@@ -196,7 +196,7 @@ hr{border:0;border-top:1px solid var(--linea);margin:16px 0}
       <input type="tel" id="c_tel" placeholder="300 000 0000" autocomplete="tel">
       <label class="check">
         <input type="checkbox" id="c_hd">
-        <span>Autorizo el tratamiento de mis datos personales para atender esta solicitud de servicio, conforme a la Ley 1581 de 2012. Los datos quedan guardados solo en este celular y en el WhatsApp del taller.</span>
+        <span>Autorizo el tratamiento de mis datos personales para atender esta solicitud de servicio, conforme a la Ley 1581 de 2012. Los datos se envían al taller por WhatsApp y quedan guardados en su servidor únicamente para atender el servicio. Puedes pedir que los borren cuando quieras.</span>
       </label>
       <button class="btn btn-linea" onclick="guardarCliente()">Guardar mis datos</button>
     </div>
@@ -239,6 +239,13 @@ hr{border:0;border-top:1px solid var(--linea);margin:16px 0}
       <div class="cifra" id="kpiUtil" style="color:var(--aceite)">$0</div>
       <div class="mini" id="kpiGasto">$0 en gastos</div>
     </div>
+  </div>
+
+  <div class="bloque">
+    <h2>Pedidos que llegaron<i class="badge oculto" id="badgePedidos" style="position:static;transform:none;margin-left:8px"></i></h2>
+    <p class="mini" style="margin:-6px 0 12px">Lo que la gente manda desde la app. Se revisa solo cada 45 segundos.</p>
+    <div id="listaPedidos"></div>
+    <button class="btn btn-linea sm" style="margin-top:6px" onclick="traerPedidos(false)">Revisar ahora</button>
   </div>
 
   <div class="bloque">
@@ -371,6 +378,9 @@ hr{border:0;border-top:1px solid var(--linea);margin:16px 0}
     </div>
     <span class="rotulo">Clave del panel</span>
     <input type="text" id="a_pin" inputmode="numeric">
+    <span class="rotulo">Clave del servidor de pedidos</span>
+    <input type="text" id="a_key" placeholder="La que pusiste en config.json">
+    <p class="mini" style="margin:-4px 0 10px">Solo se guarda en este celular. Sin ella no se ven los pedidos del servidor.</p>
     <button class="btn btn-oro" onclick="guardarAjustes()">Guardar ajustes</button>
   </div>
   <div class="bloque">
@@ -415,14 +425,19 @@ hr{border:0;border-top:1px solid var(--linea);margin:16px 0}
 const LLAVE = 'vp_alejo_v2';
 const TZ = 'America/Bogota';
 
+/* Servidor de pedidos. Cámbialo por tu subdominio con HTTPS.
+   Déjalo vacío ('') para trabajar solo con WhatsApp, sin servidor. */
+const API_URL = 'https://api.vibraspositivashm.com';
+
 const BASE = {
   ajustes:{
     nombre:'ALEJO MOTO-MÓVIL',
     zona:'Mecánica de motos a domicilio · Caucasia',
-    wa:'573136002941',
+    wa:'573117700431',
     pin:'2026',
     kmAviso:2000,
-    diasAviso:75
+    diasAviso:75,
+    apiKey:''
   },
   servicios:[
     {id:'s1',n:'Cambio de aceite',v:25000},
@@ -446,6 +461,8 @@ let rango = 'dia';
 let vista = 'cliente';
 let cotiza = new Set();
 let seleccionCliente = new Set();
+let pedidos = [];
+let temporizadorPedidos = null;
 
 function cargar(){
   try{
@@ -532,7 +549,7 @@ function ir(v){
 function pedirPin(){
   modal(`
     <h2>Panel del taller</h2>
-    <p class="mini">Solo para Alejo. Escribe tu clave.</p>
+    <p class="mini">Acceso del administrador. Escribe tu clave.</p>
     <input type="password" id="pinIn" inputmode="numeric" placeholder="Clave" autofocus>
     <button class="btn btn-oro" onclick="validarPin()">Entrar</button>
     <button class="btn btn-linea" style="margin-top:8px" onclick="cerrarModal()">Cancelar</button>
@@ -544,12 +561,13 @@ function validarPin(){
     $('barraNav').classList.remove('oculto');
     $('btnAcceso').classList.add('oculto');
     sessionStorage.setItem('vp_alejo_ses','1');
-    ir('hoy');
+    ir('hoy'); vigilarPedidos();
   }else{
     toast('Clave incorrecta');
   }
 }
 function salirPanel(){
+  clearInterval(temporizadorPedidos);
   sessionStorage.removeItem('vp_alejo_ses');
   $('barraNav').classList.add('oculto');
   $('btnAcceso').classList.remove('oculto');
@@ -637,7 +655,104 @@ function mandarSolicitud(c,gps){
   if(obs) m += `Detalle: ${obs}\n`;
   m += `———————————\nUbicación:\n${gps}\n\n`;
   m += `Enviado ${relojTexto()}`;
+
+  // El pedido viaja al servidor y también por WhatsApp.
+  // Si el servidor está caído, WhatsApp igual sale: el pedido nunca se pierde.
+  if(API_URL){
+    fetch(API_URL + '/api/pedidos', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        nombre:c.n, telefono:c.t, direccion:c.d,
+        moto:moto, servicios:servs.map(s=>s.n), estimado:total,
+        notas:obs, gps:gps, autoriza:true
+      })
+    }).catch(()=>{ /* sin servidor: queda el WhatsApp */ });
+  }
   abrirWA(DB.ajustes.wa, m);
+}
+
+/* ============================================================
+   PEDIDOS QUE LLEGAN DEL SERVIDOR
+   ============================================================ */
+async function traerPedidos(silencioso){
+  if(!API_URL || !DB.ajustes.apiKey){ pintarPedidos(); return; }
+  try{
+    const r = await fetch(API_URL + '/api/pedidos?estado=nuevo', {
+      headers:{'x-api-key': DB.ajustes.apiKey}, cache:'no-store'
+    });
+    if(r.status === 401){ pedidos = []; pintarPedidos('clave'); return; }
+    const d = await r.json();
+    const antes = pedidos.length;
+    pedidos = d.pedidos || [];
+    pintarPedidos();
+    if(!silencioso && pedidos.length > antes) toast('Llegó un pedido nuevo');
+  }catch(e){ pintarPedidos('sinred'); }
+}
+const esc = t => String(t||'').replace(/\\/g,'').replace(/'/g,"\u2019").replace(/"/g,'');
+function pintarPedidos(problema){
+  const cont = $('listaPedidos'); if(!cont) return;
+  const b = $('badgePedidos');
+  if(problema === 'clave'){
+    cont.innerHTML = `<div class="vacio">La clave del servidor no es correcta.<br>Revísala en Ajustes.</div>`;
+  } else if(problema === 'sinred'){
+    cont.innerHTML = `<div class="vacio">No hay conexión con el servidor.<br>Los pedidos siguen llegando por WhatsApp.</div>`;
+  } else if(!API_URL || !DB.ajustes.apiKey){
+    cont.innerHTML = `<div class="vacio">Escribe la clave del servidor en Ajustes para ver aquí los pedidos.</div>`;
+  } else if(!pedidos.length){
+    cont.innerHTML = `<div class="vacio">Ningún pedido nuevo por ahora.</div>`;
+  } else {
+    cont.innerHTML = pedidos.map(p=>`
+      <div class="tarjeta">
+        <div class="cab">
+          <div><b>${p.nombre}</b><div class="meta">${p.moto || 'Moto sin especificar'}</div></div>
+          <span class="pill on">${p.hora}</span>
+        </div>
+        <div class="meta" style="margin-top:6px">
+          ${p.servicios.join(' · ') || 'Sin servicio marcado'}<br>
+          ${p.direccion || ''}${p.notas ? '<br>Dice: ' + p.notas : ''}
+          ${p.estimado ? '<br>Estimado ' + pesos(p.estimado) : ''}
+        </div>
+        <div class="fila" style="margin-top:10px">
+          <button class="btn btn-verde sm" onclick="abrirWA('${esc(p.telefono)}','Hola ${esc(p.nombre.split(" ")[0])}, recibimos su solicitud, ya vamos en camino.')">Llamarlo</button>
+          ${(p.gps||'').startsWith('http') ? `<button class="btn btn-linea sm" onclick="window.open('${esc(p.gps)}','_blank')">Ver mapa</button>` : ''}
+          <button class="btn btn-oro sm" onclick="pedidoATrabajo('${p.id}')">Es un trabajo</button>
+          <button class="btn btn-rojo sm" onclick="marcarPedido('${p.id}','descartado')">✕</button>
+        </div>
+      </div>`).join('');
+  }
+  if(b){
+    if(pedidos.length){ b.textContent = pedidos.length; b.classList.remove('oculto'); }
+    else b.classList.add('oculto');
+  }
+}
+async function marcarPedido(id, estado){
+  try{
+    await fetch(API_URL + '/api/pedidos/' + id, {
+      method:'PATCH',
+      headers:{'Content-Type':'application/json','x-api-key':DB.ajustes.apiKey},
+      body: JSON.stringify({estado})
+    });
+    pedidos = pedidos.filter(p=>p.id!==id);
+    pintarPedidos();
+  }catch(e){ toast('No se pudo actualizar el pedido'); }
+}
+function pedidoATrabajo(id){
+  const p = pedidos.find(x=>x.id===id); if(!p) return;
+  nuevaOrden();
+  setTimeout(()=>{
+    $('t_cli').value = p.nombre;
+    $('t_tel').value = p.telefono;
+    $('t_moto').value = p.moto;
+    $('t_desc').value = p.servicios.join(', ');
+    if(p.estimado) $('t_obra').value = p.estimado;
+    marcarPedido(id,'atendido');
+  }, 60);
+}
+function vigilarPedidos(){
+  clearInterval(temporizadorPedidos);
+  traerPedidos(true);
+  temporizadorPedidos = setInterval(()=>traerPedidos(false), 45000);
 }
 
 /* ============================================================
@@ -838,10 +953,10 @@ function recordar(id){
   if(!m) return;
   if(!m.tel) return toast('Esa moto no tiene celular guardado');
   const d = diasEntre(m.ultima);
-  let msg = `Hola ${m.dueno.split(' ')[0]}, le habla Alejo del taller móvil.\n\n`;
+  let msg = `Hola ${m.dueno.split(' ')[0]}, le escribimos de ${DB.ajustes.nombre}.\n\n`;
   msg += `Su ${m.moto}${m.placa?' ('+m.placa+')':''} cumplió ${d} días desde el último ${(m.ultimoServicio||'servicio').toLowerCase()}`;
   if(m.ultimoKm) msg += ` y quedó en ${m.ultimoKm.toLocaleString('es-CO')} km`;
-  msg += `.\n\nYa le toca mantenimiento. ¿Le paso esta semana? Voy hasta donde esté, sin costo de traslado dentro de Caucasia.\n\n`;
+  msg += `.\n\nYa le toca mantenimiento. ¿Le pasamos esta semana? Vamos hasta donde esté, sin costo de traslado dentro de Caucasia.\n\n`;
   msg += `${DB.ajustes.nombre}`;
   abrirWA(m.tel, msg);
 }
@@ -868,6 +983,7 @@ function borrarMoto(id){
    HOY
    ============================================================ */
 function pintarHoy(){
+  pintarPedidos();
   const hoy = ahoraCol();
   const th = DB.trabajos.filter(t=>t.fecha===hoy);
   const ingreso = th.filter(t=>t.estado==='pagado').reduce((a,t)=>a+t.total,0);
@@ -1027,7 +1143,7 @@ function enviarCotizacion(){
   let m = `*COTIZACIÓN*\n${DB.ajustes.nombre}\n———————————\n`;
   m += sel.map(s=>`• ${s.n} — ${pesos(s.v)}`).join('\n');
   m += `\n———————————\n*TOTAL: ${pesos(t)}*\nMano de obra incluida. Los repuestos se cotizan aparte.\n\n`;
-  m += `Voy hasta donde esté la moto.\n${DB.ajustes.zona}`;
+  m += `Vamos hasta donde esté la moto.\n${DB.ajustes.zona}`;
   abrirWA('', m);
 }
 
@@ -1038,6 +1154,7 @@ function cargarAjustes(){
   const a = DB.ajustes;
   $('a_nombre').value=a.nombre; $('a_wa').value=a.wa; $('a_zona').value=a.zona;
   $('a_km').value=a.kmAviso; $('a_dias').value=a.diasAviso; $('a_pin').value=a.pin;
+  $('a_key').value=a.apiKey||'';
 }
 function guardarAjustes(){
   DB.ajustes = {
@@ -1046,9 +1163,10 @@ function guardarAjustes(){
     zona:$('a_zona').value.trim(),
     kmAviso:Number($('a_km').value)||2000,
     diasAviso:Number($('a_dias').value)||75,
-    pin:$('a_pin').value.trim()||'2026'
+    pin:$('a_pin').value.trim()||'2026',
+    apiKey:$('a_key').value.trim()
   };
-  guardar(); aplicarMarca(); toast('Ajustes guardados');
+  guardar(); aplicarMarca(); vigilarPedidos(); toast('Ajustes guardados');
 }
 function aplicarMarca(){
   $('tituloNegocio').textContent = DB.ajustes.nombre;
@@ -1105,7 +1223,7 @@ mostrarCliente();
 if(sessionStorage.getItem('vp_alejo_ses')==='1'){
   $('barraNav').classList.remove('oculto');
   $('btnAcceso').classList.add('oculto');
-  ir('hoy');
+  ir('hoy'); vigilarPedidos();
 }else{
   ir('cliente');
 }

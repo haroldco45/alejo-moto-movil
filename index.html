@@ -381,6 +381,12 @@ hr{border:0;border-top:1px solid var(--linea);margin:16px 0}
     <span class="rotulo">Clave del servidor de pedidos</span>
     <input type="text" id="a_key" placeholder="La que pusiste en config.json">
     <p class="mini" style="margin:-4px 0 10px">Solo se guarda en este celular. Sin ella no se ven los pedidos del servidor.</p>
+    <div class="tarjeta" style="border-left-color:var(--tenue)">
+      <div class="mini">Servidor en uso</div>
+      <b id="infoServidor" style="font-size:13px;word-break:break-all">—</b>
+      <button class="btn btn-linea sm" style="margin-top:9px" onclick="probarServidor()">Probar conexión</button>
+      <div class="mini" id="resultadoPrueba" style="margin-top:6px"></div>
+    </div>
     <button class="btn btn-oro" onclick="guardarAjustes()">Guardar ajustes</button>
   </div>
   <div class="bloque">
@@ -425,9 +431,15 @@ hr{border:0;border-top:1px solid var(--linea);margin:16px 0}
 const LLAVE = 'vp_alejo_v2';
 const TZ = 'America/Bogota';
 
-/* Servidor de pedidos. Cámbialo por tu subdominio con HTTPS.
-   Déjalo vacío ('') para trabajar solo con WhatsApp, sin servidor. */
-const API_URL = 'https://api.vibraspositivashm.com';
+/* Servidor de pedidos.
+   - Si abres la app desde el propio servidor (localhost, 127.0.0.1 o la red
+     local), habla con ese mismo servidor. Así se puede probar sin DNS.
+   - Si la abres desde GitHub Pages o el dominio, usa API_REMOTO.
+   Deja API_REMOTO en '' para trabajar solo con WhatsApp, sin servidor. */
+const API_REMOTO = 'https://api.vibraspositivashm.com';
+const API_URL = /^(localhost|127\.0\.0\.1|\[::1\]|192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/.test(location.hostname)
+  ? location.origin
+  : API_REMOTO;
 
 const BASE = {
   ajustes:{
@@ -667,7 +679,12 @@ function mandarSolicitud(c,gps){
         moto:moto, servicios:servs.map(s=>s.n), estimado:total,
         notas:obs, gps:gps, autoriza:true
       })
-    }).catch(()=>{ /* sin servidor: queda el WhatsApp */ });
+    })
+    .then(r => r.ok ? toast('Tu solicitud quedó registrada') : Promise.reject(r.status))
+    .catch(e => {
+      console.warn('El pedido no llegó al servidor:', e, '→ URL usada:', API_URL);
+      toast('Se envió por WhatsApp. El taller lo recibe igual.');
+    });
   }
   abrirWA(DB.ajustes.wa, m);
 }
@@ -1150,8 +1167,26 @@ function enviarCotizacion(){
 /* ============================================================
    AJUSTES Y RESPALDO
    ============================================================ */
+async function probarServidor(){
+  const r = $('resultadoPrueba');
+  r.textContent = 'Probando…';
+  if(!API_URL) return r.textContent = 'No hay servidor configurado. Todo va por WhatsApp.';
+  try{
+    const e = await fetch(API_URL + '/api/estado', {cache:'no-store'});
+    const d = await e.json();
+    if(!d.ok) throw 0;
+    if(!DB.ajustes.apiKey) return r.innerHTML = '<span style="color:var(--aceite)">El servidor responde, pero falta escribir la clave aquí arriba.</span>';
+    const p = await fetch(API_URL + '/api/pedidos?estado=nuevo', {headers:{'x-api-key':DB.ajustes.apiKey}});
+    if(p.status === 401) return r.innerHTML = '<span style="color:var(--alerta)">El servidor responde, pero la clave no es la correcta.</span>';
+    const j = await p.json();
+    r.innerHTML = `<span style="color:var(--verde)">Todo bien. ${j.total} pedido(s) sin atender. Hora del servidor: ${d.hora}</span>`;
+  }catch(e){
+    r.innerHTML = '<span style="color:var(--alerta)">No hay conexión con el servidor. Los pedidos siguen llegando por WhatsApp.</span>';
+  }
+}
 function cargarAjustes(){
   const a = DB.ajustes;
+  $('infoServidor').textContent = API_URL || 'Ninguno (solo WhatsApp)';
   $('a_nombre').value=a.nombre; $('a_wa').value=a.wa; $('a_zona').value=a.zona;
   $('a_km').value=a.kmAviso; $('a_dias').value=a.diasAviso; $('a_pin').value=a.pin;
   $('a_key').value=a.apiKey||'';

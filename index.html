@@ -345,7 +345,8 @@ hr{border:0;border-top:1px solid var(--linea);margin:16px 0}
 <section id="v-precios" class="oculto">
   <div class="bloque">
     <h2>Lista de precios</h2>
-    <p class="mini" style="margin:-6px 0 12px">Ajusta los valores a como los cobras. Se usan para cotizar y para armar los trabajos.</p>
+    <p class="mini" style="margin:-6px 0 10px">Ajusta los valores a como los cobras. Se usan para cotizar y para armar los trabajos.</p>
+    <div class="mini" id="estadoPrecios" style="margin-bottom:12px"></div>
     <div id="listaPrecios"></div>
     <hr>
     <div class="g2">
@@ -554,7 +555,7 @@ function ir(v){
   if(v==='trabajos') pintarTrabajos();
   if(v==='motos') pintarMotos();
   if(v==='caja') pintarCaja();
-  if(v==='precios') pintarPrecios();
+  if(v==='precios'){ pintarPrecios(); bajarPrecios(); }
   if(v==='ajustes') cargarAjustes();
 }
 
@@ -1113,7 +1114,52 @@ function cierreDia(){
 
 /* ============================================================
    PRECIOS Y COTIZACIÓN
+   La lista vive en el servidor: se cambia una vez y todos la ven.
+   Si no hay conexión, se usa la última guardada en este aparato.
    ============================================================ */
+let preciosDelServidor = false;
+
+async function bajarPrecios(){
+  if(!API_URL) return;
+  try{
+    const r = await fetch(API_URL + '/api/precios', {cache:'no-store'});
+    const d = await r.json();
+    if(d.ok && Array.isArray(d.servicios) && d.servicios.length){
+      DB.servicios = d.servicios;
+      DB.preciosActualizado = d.actualizado;
+      guardar();
+      preciosDelServidor = true;
+      pintarChipsCliente();
+      if(vista === 'precios') pintarPrecios();
+    }
+  }catch(e){ preciosDelServidor = false; }
+}
+
+async function subirPrecios(){
+  const aviso = $('estadoPrecios');
+  if(!API_URL || !DB.ajustes.apiKey){
+    if(aviso) aviso.innerHTML = '<span style="color:var(--aceite)">Guardado solo en este aparato. Escribe la clave del servidor en Ajustes para que todos vean estos precios.</span>';
+    return;
+  }
+  if(aviso) aviso.textContent = 'Guardando en el servidor…';
+  try{
+    const r = await fetch(API_URL + '/api/precios', {
+      method:'PUT',
+      headers:{'Content-Type':'application/json','x-api-key':DB.ajustes.apiKey},
+      body: JSON.stringify({servicios: DB.servicios})
+    });
+    if(r.status === 401) throw new Error('clave');
+    const d = await r.json();
+    if(!d.ok) throw new Error('rechazo');
+    if(aviso) aviso.innerHTML = `<span style="color:var(--verde)">Guardado. Los ${d.total} servicios ya se ven en todos los aparatos.</span>`;
+  }catch(e){
+    const m = e.message === 'clave'
+      ? 'La clave del servidor no es correcta. El cambio quedó solo en este aparato.'
+      : 'No se pudo guardar en el servidor. El cambio quedó solo en este aparato.';
+    if(aviso) aviso.innerHTML = `<span style="color:var(--alerta)">${m}</span>`;
+  }
+}
+
 function pintarPrecios(){
   $('listaPrecios').innerHTML = DB.servicios.map(s=>`
     <div class="tarjeta"><div class="cab">
@@ -1130,19 +1176,19 @@ function pintarPrecios(){
 function editarServicio(id,campo,val){
   const s = DB.servicios.find(x=>x.id===id);
   s[campo] = campo==='v' ? Number(val)||0 : val;
-  guardar(); pintarChipsCliente(); calcularCotiza();
+  guardar(); pintarChipsCliente(); calcularCotiza(); subirPrecios();
 }
 function agregarServicio(){
   const n = $('p_nom').value.trim(), v = Number($('p_val').value)||0;
   if(!n) return toast('Escribe el nombre del servicio');
   DB.servicios.push({id:uid(), n, v});
   $('p_nom').value=''; $('p_val').value='';
-  guardar(); pintarPrecios(); pintarChipsCliente(); toast('Servicio agregado');
+  guardar(); pintarPrecios(); pintarChipsCliente(); subirPrecios(); toast('Servicio agregado');
 }
 function borrarServicio(id){
   DB.servicios = DB.servicios.filter(s=>s.id!==id);
   cotiza.delete(id);
-  guardar(); pintarPrecios(); pintarChipsCliente();
+  guardar(); pintarPrecios(); pintarChipsCliente(); subirPrecios();
 }
 function toggleCotiza(el,id){
   cotiza.has(id) ? cotiza.delete(id) : cotiza.add(id);
@@ -1254,6 +1300,7 @@ function importar(ev){
 aplicarMarca();
 tick();
 pintarChipsCliente();
+bajarPrecios();
 mostrarCliente();
 if(sessionStorage.getItem('vp_alejo_ses')==='1'){
   $('barraNav').classList.remove('oculto');

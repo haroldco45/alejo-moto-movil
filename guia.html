@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo pedir tu servicio | Alejo Moto-Móvil</title>
+<meta name="description" content="Guía rápida para pedir mecánica de motos a domicilio en Caucasia con Alejo Moto-Móvil.">
+<meta name="theme-color" content="#12100E">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alejo Moto-Móvil">
+<meta property="og:title" content="Cómo pedir tu servicio | Alejo Moto-Móvil">
+<meta property="og:description" content="Cuatro pasos para que el mecánico llegue donde tengas la moto, en Caucasia.">
+<meta property="og:image" content="https://vibraspositivashm.com/og/alejo-moto-movil.jpg">
+<meta property="og:url" content="https://alejo-moto-movil.netlify.app/guia.html">
+<meta property="og:locale" content="es_CO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cómo pedir tu servicio | Alejo Moto-Móvil">
+<meta name="twitter:description" content="Cuatro pasos para que el mecánico llegue donde tengas la moto.">
+<meta name="twitter:image" content="https://vibraspositivashm.com/og/alejo-moto-movil.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --tinta:#141210;
+  --papel:#F7F4EE;
+  --aceite:#E8A317;
+  --verde:#1FA463;
+  --linea:#D8D2C6;
+  --tenue:#6E665C;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--papel);
+  color:var(--tinta);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:17px;line-height:1.6;
+}
+.hoja{max-width:640px;margin:0 auto;padding:0 20px 40px}
+
+/* Cabecera: la placa de la moto como ancla visual */
+header{
+  background:var(--tinta);color:var(--papel);
+  margin:0 -20px 30px;padding:30px 20px 26px;
+  border-bottom:6px solid var(--aceite);
+}
+.taller{display:flex;align-items:center;gap:13px}
+.emblema{
+  width:50px;height:50px;flex:0 0 50px;border-radius:13px;
+  background:var(--aceite);color:var(--tinta);
+  display:grid;place-items:center;font-size:26px;
+}
+h1{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:32px;line-height:1;margin:0;letter-spacing:.01em;
+}
+header p{margin:5px 0 0;color:#A9A199;font-size:14px}
+.titular{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:40px;line-height:1.05;margin:26px 0 10px;
+}
+.entrada{font-size:18px;color:#3A342E;margin:0 0 34px}
+
+h2{
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;
+  font-size:26px;margin:38px 0 14px;
+}
+
+/* Los pasos sí son una secuencia: van numerados */
+ol.pasos{list-style:none;margin:0;padding:0;counter-reset:p}
+ol.pasos li{
+  counter-increment:p;
+  position:relative;padding:0 0 26px 62px;
+}
+ol.pasos li::before{
+  content:counter(p);
+  position:absolute;left:0;top:-4px;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--tinta);color:var(--aceite);
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:24px;
+  display:grid;place-items:center;
+}
+ol.pasos li::after{
+  content:"";position:absolute;left:21px;top:44px;bottom:6px;width:2px;
+  background:var(--linea);
+}
+ol.pasos li:last-child::after{display:none}
+ol.pasos b{display:block;font-size:19px;margin-bottom:3px}
+ol.pasos p{margin:0;color:#4A443D}
+
+.aviso{
+  border-left:5px solid var(--aceite);
+  background:#FBF3DF;
+  padding:15px 17px;margin:26px 0;font-size:16px;
+}
+.aviso b{display:block;margin-bottom:3px}
+
+table{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:16px}
+th,td{text-align:left;padding:11px 0;border-bottom:1px solid var(--linea);vertical-align:top}
+th{font-weight:600;width:46%}
+td{color:#4A443D}
+
+.duda{margin:0 0 18px}
+.duda b{display:block;margin-bottom:2px}
+.duda p{margin:0;color:#4A443D}
+
+.llamado{
+  background:var(--tinta);color:var(--papel);
+  margin:38px -20px 0;padding:28px 20px;text-align:center;
+}
+.llamado .numero{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:34px;color:var(--aceite);display:block;margin:6px 0 4px;
+  text-decoration:none;
+}
+.llamado p{margin:0;color:#A9A199;font-size:15px}
+
+footer{
+  text-align:center;color:var(--tenue);font-size:13px;
+  padding:26px 0 0;line-height:1.7;
+}
+footer b{color:var(--tinta)}
+
+@media print{
+  body{background:#fff;font-size:12pt}
+  header,.llamado{margin-left:0;margin-right:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .titular{font-size:30pt}
+  ol.pasos li{padding-bottom:16px}
+}
+@media (max-width:420px){
+  .titular{font-size:33px}
+  h1{font-size:27px}
+}
+</style>
+</head>
+<body>
+
+<div class="hoja">
+
+<header>
+  <div class="taller">
+    <div class="emblema">🛠️</div>
+    <div>
+      <h1>ALEJO MOTO-MÓVIL</h1>
+      <p>Mecánica de motos a domicilio en Caucasia</p>
+    </div>
+  </div>
+</header>
+
+<div class="titular">Tu moto se arregla<br>donde tú estés</div>
+<p class="entrada">No tienes que empujarla ni dejarla en un taller esperando. Pides el servicio desde el celular, mandas tu ubicación, y el mecánico llega con las herramientas.</p>
+
+<h2>Cómo pedir el servicio</h2>
+
+<ol class="pasos">
+  <li>
+    <b>Abre la aplicación</b>
+    <p>Entra a <b>alejo-moto-movil.netlify.app</b> desde el celular. No hay que descargar nada de la tienda ni crear cuenta.</p>
+  </li>
+  <li>
+    <b>Guarda tus datos una sola vez</b>
+    <p>Tu nombre, un punto de referencia de dónde estás y tu celular. Marca la casilla de autorización y toca «Guardar mis datos». La próxima vez ya no los pide.</p>
+  </li>
+  <li>
+    <b>Marca lo que necesitas</b>
+    <p>Toca los servicios que quieres, escribe qué moto tienes y cuéntale al mecánico qué le pasa: no prende, suena la cadena, se calienta. Entre más le digas, mejor llega preparado.</p>
+  </li>
+  <li>
+    <b>Manda la solicitud</b>
+    <p>Toca «Enviar solicitud con mi ubicación» y permite que el celular comparta dónde estás. Se abre WhatsApp con todo escrito; solo dale enviar.</p>
+  </li>
+</ol>
+
+<div class="aviso">
+  <b>Permite el acceso a la ubicación</b>
+  El celular te va a preguntar si compartes dónde estás. Dale que sí: es lo que hace que el mecánico llegue directo sin llamarte tres veces a preguntar por dónde es.
+</div>
+
+<h2>Qué pasa después</h2>
+<p>Te contestamos por WhatsApp para confirmar a qué hora llegamos. Si es una varada, avísanos que es urgente en las notas y vamos primero.</p>
+<p>Cuando terminan el trabajo te llega un recibo por WhatsApp con lo que se hizo, cuánto costó y en qué kilometraje quedó tu moto. Guárdalo: es el historial de tu moto.</p>
+
+<h2>Lo que se hace a domicilio</h2>
+<table>
+  <tr><th>Cambio de aceite</th><td>El mantenimiento de siempre, en tu casa o en el trabajo</td></tr>
+  <tr><th>Engrasada y tensionada de cadena</th><td>Lo que más se descuida y lo que más daña el arrastre</td></tr>
+  <tr><th>Frenos</th><td>Pastillas y bandas</td></tr>
+  <tr><th>Sincronización</th><td>Para que gaste menos y arranque bien</td></tr>
+  <tr><th>Kit de arrastre</th><td>Cambio completo de piñón, cadena y catalina</td></tr>
+  <tr><th>Revisión eléctrica</th><td>Luces, batería, arranque</td></tr>
+  <tr><th>Varada o emergencia</th><td>Si te quedaste tirado en la vía</td></tr>
+</table>
+<p style="margin-top:14px">La lista de precios está dentro de la aplicación, en «Ver lista de precios». Los repuestos se cobran aparte y siempre te decimos cuánto valen antes de ponerlos.</p>
+
+<h2>Dudas que nos hacen seguido</h2>
+
+<div class="duda">
+  <b>¿Cobran por ir hasta donde estoy?</b>
+  <p>Dentro de Caucasia no. Si estás fuera del casco urbano, pregúntanos primero.</p>
+</div>
+<div class="duda">
+  <b>¿Tengo que estar yo presente?</b>
+  <p>Sí, o alguien que responda por la moto. Es tu moto y tu plata.</p>
+</div>
+<div class="duda">
+  <b>¿Y si necesito un repuesto que no traen?</b>
+  <p>Te decimos qué se necesita y cuánto vale. Tú decides si lo conseguimos o lo compras tú.</p>
+</div>
+<div class="duda">
+  <b>¿Qué hacen con mis datos?</b>
+  <p>Tu nombre, teléfono y dirección se usan solo para prestarte el servicio, como manda la Ley 1581 de 2012. No se venden ni se comparten con nadie. Si quieres que los borremos, pídelo y se borran.</p>
+</div>
+<div class="duda">
+  <b>¿Me avisan cuándo toca el próximo mantenimiento?</b>
+  <p>Sí. Guardamos el kilometraje de tu moto y te escribimos cuando ya le toca, para que no se te pase.</p>
+</div>
+
+<div class="llamado">
+  <p>Escríbenos por WhatsApp</p>
+  <a class="numero" href="https://wa.me/573117700431">311 770 0431</a>
+  <p>Caucasia, Antioquia</p>
+</div>
+
+<footer>
+  Desarrollada por <b>Vibras Positivas HM</b> — Derechos de Autor Reservados
+</footer>
+
+</div>
+</body>
+</html>
